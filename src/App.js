@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import {Button} from '@mui/material';
+import Input from './components/Input';
 
 function App() {
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+ 
+  function validateEmail(text) {
+    if(text.length > 3) {
+      setEmailError(false);
+    } else {
+      setEmailError(true);
+    }
+  }
+
+  function validatePassword(text) {
+    if(text.length > 8) {
+      setPasswordError(false);
+    } else {
+      setPasswordError(true);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Sign Up</h1>
+      <form>
+        <p>email</p>
+        <Input error={emailError} onChangeFunction={(e) => validateEmail(e.target.value)} />
+        <p>password</p>
+        <Input error={passwordError} onChangeFunction={(e) => validatePassword(e.target.value) } />
+        <Button variant="contained" onClick={() => console.log('button clicked... fetching data from server')}>Sign up</Button>
+      </form>
+    </>
   );
 }
 
